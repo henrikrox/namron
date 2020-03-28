@@ -1,6 +1,8 @@
 # Namron Z-wave app
 
-This app adds support for the Namron Z-wave.
+A Homey app that will let you include Namron z-wave devices with Homey unsecure. Which will lower latency and improve battery life (on battery powered devices).
+
+For installing this app. Use Homey CLI: https://community.athom.com/t/how-to-cli-install-method/198
 
 ## Supported devices
 
@@ -16,15 +18,8 @@ This app adds support for the Namron Z-wave.
 * [Dimmer (rotary)](https://www.elektroimportoren.no/led-dimmer-z-wave-200w/1402756/Product.html)
 * More Z-wave devices will follow soon
 
-## Supported Languages
-* English
-
-## Acknowledgements
+## Acknowledgements:
 
 This app and driver development is based on:
 
-* [ROBB smarrt Z-wave and Zigbee app](https://github.com/robb-smarrt/nl.ROBBshop.ROBB-smarrt)
-
-### Contributors
-* Filip Andre Larsen Tomren - [fiLLLip](https://github.com/fiLLLip)
-* Åsmund Bakke Bø - [aasmundbo](https://github.com/aasmundbo)
+* https://github.com/fiLLLip/namron-homey
