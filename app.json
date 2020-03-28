@@ -207,6 +207,7 @@
         "productId": [
           53253
         ],
+        "includeSecure": false,
         "zwaveAllianceProductId": 3641,
         "zwaveAllianceProductDocumentation": "https://products.z-wavealliance.org/ProductManual/File?folder=&filename=product_documents/3641/4512710%20INSTRUCTION%20MANUAL.pdf",
         "learnmode": {
@@ -456,6 +457,7 @@
         "productId": [
           2
         ],
+        "includeSecure": false,
         "learnmode": {
           "image": "/drivers/ZW_Dimmer_Rotary/assets/learnmode.svg",
           "instruction": {
@@ -707,6 +709,7 @@
         "productId": [
           53254
         ],
+        "includeSecure": false,
         "learnmode": {
           "image": "/drivers/ZW_InWallSwitch/assets/learnmode.svg",
           "instruction": {
@@ -904,6 +907,7 @@
         ],
         "productTypeId": 768,
         "productId": 45826,
+        "includeSecure": false,
         "zwaveAllianceProductId": 3334,
         "zwaveAllianceProductDocumentation": "https://products.z-wavealliance.org/ProductManual/File?folder=&filename=Manuals/3334/SR-ZV9001K8-DIM-G4%20Instruction%2020190314.pdf",
         "imageRemotePath": "",
@@ -1015,6 +1019,7 @@
         ],
         "productTypeId": 768,
         "productId": 41743,
+        "includeSecure": false,
         "productDocumentation": "",
         "pid": 9999,
         "imageRemotePath": "",
@@ -1111,6 +1116,7 @@
           41734,
           41744
         ],
+        "includeSecure": false,
         "productDocumentation": "",
         "pid": 9999,
         "imageRemotePath": "",
@@ -1210,6 +1216,7 @@
         ],
         "productTypeId": 768,
         "productId": 41733,
+        "includeSecure": false,
         "zwaveAllianceProductId": 3334,
         "zwaveAllianceProductDocumentation": "https://products.z-wavealliance.org/ProductManual/File?folder=&filename=Manuals/3334/SR-ZV9001K8-DIM-G4%20Instruction%2020190314.pdf",
         "imageRemotePath": "",
@@ -1302,6 +1309,7 @@
         "productId": [
           53252
         ],
+        "includeSecure": false,
         "learnmode": {
           "instruction": {
             "en": "1. Power on the smart plug, make sure it does not belong to any Z-Wave network. Press and hold down action button for over 10 seconds, if the LED indicator flashes yellow slowly, it means it does not belong to any network. Repower the smart plug/Triple press the action button on the smart plug to put it into inclusion mode."
