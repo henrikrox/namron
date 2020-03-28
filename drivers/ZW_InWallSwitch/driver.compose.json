@@ -1,0 +1,53 @@
+{
+  "id": "ZW_InWallSwitch",
+  "name": {
+    "en": "Switch (Z-wave)"
+  },
+  "class": "light",
+  "capabilities": [
+    "onoff"
+  ],
+  "energy": {
+    "approximation": {
+      "usageOn": 400,
+      "usageOff": 0
+    }
+  },
+  "icon": "{{driverAssetsPath}}/icon.svg",
+  "images": {
+    "large": "{{driverAssetsPath}}/images/large.png",
+    "small": "{{driverAssetsPath}}/images/small.png"
+  },
+  "zwave": {
+    "manufacturerId": [816,1080],
+    "productTypeId": [
+      512
+    ],
+    "productId": [
+      53254
+    ],
+    "learnmode": {
+      "image": "{{driverAssetsPath}}/learnmode.svg",
+      "instruction": {
+        "en": "1. Power on the in-wall switch and set it into inclusion mode. \nThere are two methods to set the in-wall switch into inclusion mode:\n1)Repower on the switch, it will be set into inclusion mode automatically, and waiting to be included.\n2)Triple press the reset button on the switch, it will set the plug into inclusion mode.\nThe connected light will stay solid on for 3 seconds to indicate successful inclusion."
+      }
+    },
+    "unlearnmode": {
+      "image": "{{driverAssetsPath}}/learnmode.svg",
+      "instruction": {
+        "en": "To remove the switch, triple press the reset button. \nThe switch will be set to exclusion mode, and waiting to be excluded, then the switch will be excluded to the network."
+      }
+    },
+    "associationGroups": [
+      1
+    ],
+    "associationGroupsOptions": {
+      "1": {
+        "hint": {
+          "en": "Lifeline association group (do not change)",
+          "nl": "Lifeline association group (niet aanpassen)"
+        }
+      }
+    }
+  }
+}

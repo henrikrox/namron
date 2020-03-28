@@ -1,0 +1,61 @@
+[
+  {
+    "type": "group",
+    "label": {
+      "en": "Button behaviour",
+      "nl": "Gedrag knoppen"
+    },
+    "collapsed": false,
+    "children": [
+      {
+        "$extends": "externalSwitchInclusionRotary",
+        "$id": "external_switch_inclusion"
+      }
+    ]
+  },
+  {
+    "type": "group",
+    "label": {
+      "en": "Dimming",
+      "nl": "Dimmen"
+    },
+    "collapsed": true,
+    "children": [
+      {
+        "$extends": "dimDurationRotary",
+        "$id": "dim_duration"
+      },
+      {
+        "$extends": "onOffDimDuration",
+        "$id": "on_off_dim_duration"
+      },
+      {
+        "$extends": "dimMethod",
+        "$id": "dim_method"
+      }
+    ]
+  },
+  {
+    "type": "group",
+    "label": {
+      "en": "Other",
+      "nl": "Overige"
+    },
+    "collapsed": true,
+    "children": [
+      {
+        "$extends": "defaultBrightness",
+        "$id": "default_brightness"
+      },
+      {
+        "$extends": "saveStateRotary",
+        "$id": "save_state"
+      },
+      {
+        "$extends": "sendBasicReportRotary",
+        "$id": "send_basic_report"
+      }
+    ]
+  }
+
+]

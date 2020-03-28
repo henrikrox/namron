@@ -1,0 +1,63 @@
+{
+  "id": "ZW_Dimmer_Rotary",
+  "name": {
+    "en": "Dimmer - Rotary (Z-wave)"
+  },
+  "class": "light",
+  "capabilities": [
+    "dim",
+    "onoff"
+  ],
+  "capabilitiesOptions": {
+		"onoff": {
+			"setOnDim": false
+		},
+		"dim": {
+			"opts": {
+				"duration": true
+			}
+		}
+	},
+  "energy": {
+    "approximation": {
+      "usageOn": 200,
+      "usageOff": 0
+    }
+  },
+  "icon": "{{driverAssetsPath}}/icon.svg",
+  "images": {
+    "large": "{{driverAssetsPath}}/images/large.png",
+    "small": "{{driverAssetsPath}}/images/small.png"
+  },
+  "zwave": {
+    "manufacturerId": 1080,
+    "productTypeId": [
+      514
+    ],
+    "productId": [
+      2
+    ],
+    "learnmode": {
+      "image": "{{driverAssetsPath}}/learnmode.svg",
+      "instruction": {
+        "en": "1. Power on the in-wall dimmer and set it into inclusion mode. \nTriple press the reset button on the dimmer, it willset the dimmer to inclusion mode. A purple light will show for 10 seconds while the device is in inclusion mode"
+      }
+    },
+    "unlearnmode": {
+      "image": "{{driverAssetsPath}}/learnmode.svg",
+      "instruction": {
+        "en": "To remove the dimmer, triple press the reset button. \nThe dimmer will be set to exclusion mode, and waiting to be excluded, then the dimmer will be excluded to the network."
+      }
+    },
+    "associationGroups": [
+      1
+    ],
+    "associationGroupsOptions": {
+      "1": {
+        "hint": {
+          "en": "Lifeline association group (do not change)"
+        }
+      }
+    }
+  }
+}

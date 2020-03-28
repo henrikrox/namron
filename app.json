@@ -1,0 +1,1357 @@
+{
+  "id": "net.filllip-namron",
+  "version": "1.3.9",
+  "compatibility": ">=1.5.13",
+  "sdk": 2,
+  "brandColor": "#aac655",
+  "name": {
+    "en": "Namron"
+  },
+  "description": {
+    "en": "Adds support for Namron Z-wave"
+  },
+  "category": [
+    "lights"
+  ],
+  "tags": {
+    "en": [
+      "Namron",
+      "Z-wave",
+      "remote",
+      "dimmer"
+    ]
+  },
+  "permissions": [],
+  "images": {
+    "large": "/assets/images/large.png",
+    "small": "/assets/images/small.png"
+  },
+  "author": {
+    "name": "Filip Andre Larsen Tomren",
+    "email": "filip@tomren.it"
+  },
+  "contributors": {
+    "developers": [
+      {
+        "name": "Filip Andre Larsen Tomren",
+        "email": "filip@tomren.it"
+      },
+      {
+        "name": "Åsmund Bakke Bø",
+        "email": "aasmundbo@gmail.com"
+      }
+    ]
+  },
+  "flow": {
+    "triggers": [
+      {
+        "id": "wall_controller_button",
+        "title": {
+          "en": "A button has been pressed",
+          "nl": "Een knop is ingedrukt"
+        },
+        "hint": {
+          "en": "This card will trigger on any button pressed and provides the scene tokens.",
+          "nl": "Deze kaart wordt geactiveerd bij iedere knop die ingedrukt wordt en biedt de scene tokens aan."
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=ZW_Remote_4|ZW_WallController_2|ZW_WallController_4|ZW_WallController_8"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "button",
+            "type": "string",
+            "title": {
+              "en": "button",
+              "nl": "knop"
+            },
+            "example": {
+              "en": "0"
+            }
+          },
+          {
+            "name": "scene",
+            "type": "string",
+            "title": {
+              "en": "scene",
+              "nl": "scene"
+            },
+            "example": {
+              "en": "Button pressed (test)"
+            }
+          }
+        ]
+      },
+      {
+        "id": "wall_controller_scene",
+        "title": {
+          "en": "A scene has been activated",
+          "nl": "Een scene is geactiveerd"
+        },
+        "hint": {
+          "en": "This card will only get triggered if the scene matches the state of the dropdown fields.",
+          "nl": "Deze kaart wordt alleen geactiveerd wanneer de scene overeenkomt met de toestand van de gekozen opties."
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=ZW_Remote_4|ZW_WallController_2|ZW_WallController_4|ZW_WallController_8"
+          },
+          {
+            "name": "button",
+            "type": "autocomplete"
+          },
+          {
+            "name": "scene",
+            "type": "autocomplete"
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "title": {
+          "en": "Set forced brightness",
+          "nl": "Stel geforceerde helderheid in"
+        },
+        "hint": {
+          "en": "Change the \"set forced brightness\" parameter of your dimmer. If this parameter is active, switching on the Dimmer 2 (S1 single click) will always set this brightness level, 0 will disable this function.",
+          "nl": "Stel de \"geforceerde helderheid\" parameter van een dimmer in. Wanneer deze parameter actief is, zal bij het inschakelen van Dimmer 2 (S1 single click) altijd naar deze helderheid inschakelen, 0 schakelt deze functie uit."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ZB_Dimmer_3wire"
+          },
+          {
+            "type": "dropdown",
+            "name": "enable_set_forced_brightness",
+            "values": [
+              {
+                "id": "enabled",
+                "label": {
+                  "en": "Enabled",
+                  "nl": "Ingeschakeld"
+                }
+              },
+              {
+                "id": "disabled",
+                "label": {
+                  "en": "Disabled",
+                  "nl": "Uitgeschakeld"
+                }
+              }
+            ]
+          },
+          {
+            "name": "set_forced_brightness_level",
+            "type": "range",
+            "min": 0,
+            "max": 1,
+            "step": 0.01,
+            "label": "%",
+            "labelMultiplier": 100
+          }
+        ],
+        "id": "ZB_dim_set_forced_brightness"
+      }
+    ]
+  },
+  "drivers": [
+    {
+      "id": "ZW_Dimmer_3wire",
+      "name": {
+        "en": "Dimmer - 3 wire (Z-wave)",
+        "nl": "Inbouwdimmer 3-draads (Z-wave)"
+      },
+      "class": "light",
+      "capabilities": [
+        "dim",
+        "onoff"
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "setOnDim": false
+        },
+        "dim": {
+          "opts": {
+            "duration": true
+          }
+        }
+      },
+      "energy": {
+        "approximation": {
+          "usageOn": 400,
+          "usageOff": 0
+        }
+      },
+      "icon": "/drivers/ZW_Dimmer_3wire/assets/icon.svg",
+      "images": {
+        "large": "/drivers/ZW_Dimmer_3wire/assets/images/large.png",
+        "small": "/drivers/ZW_Dimmer_3wire/assets/images/small.png"
+      },
+      "zwave": {
+        "manufacturerId": [
+          816,
+          1080
+        ],
+        "productTypeId": [
+          512
+        ],
+        "productId": [
+          53253
+        ],
+        "zwaveAllianceProductId": 3641,
+        "zwaveAllianceProductDocumentation": "https://products.z-wavealliance.org/ProductManual/File?folder=&filename=product_documents/3641/4512710%20INSTRUCTION%20MANUAL.pdf",
+        "learnmode": {
+          "image": "/drivers/ZW_Dimmer_3wire/assets/learnmode.svg",
+          "instruction": {
+            "en": "1. Power on the in-wall dimmer and set it into inclusion mode. \nThere are two methods to set the in-wall dimmer into inclusion mode:\n1)Repower on the dimmer, it will be set into inclusion mode automatically, and waiting to be included.\n2)Triple press the reset button on the dimmer, it will set the plug into inclusion mode.\nThe connected light will stay solid on for 3 seconds to indicate successful inclusion.",
+            "nl": "1. Schakel de inbouwdimmer in en activeer de inclusion modus. \nDe inclusion modus wordt geactiveerd op de volgende twee mmanieren:\n1)Stroom opnieuw inschakelen op de dimmer, waarna de dimmer automatisch de inclusion mode activeerd en wacht om toegevoegd te worden. \n2)Drie keer de reset knop op de dimmer indrukken activeert de inclusion modus.\nDe aangesloten lamp brand gedurende 3 seconden wanneer het toevoegen succesvol afgerond is."
+          }
+        },
+        "unlearnmode": {
+          "image": "/drivers/ZW_Dimmer_3wire/assets/learnmode.svg",
+          "instruction": {
+            "en": "To remove the dimmer, triple press the reset button. \nThe dimmer will be set to exclusion mode, and waiting to be excluded, then the dimmer will be excluded to the network.",
+            "nl": "Om de dimmer te verwijderen, druk drie keer de reset knop op de dimmer in. \n De exclusion modus van de dimmer wordt geactiveerd en de dimmer wordt verwijdert uit het netwerk."
+          }
+        },
+        "associationGroups": [
+          1
+        ],
+        "associationGroupsOptions": {
+          "1": {
+            "hint": {
+              "en": "Lifeline association group (do not change)",
+              "nl": "Lifeline association group (niet aanpassen)"
+            }
+          }
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Button behaviour",
+            "nl": "Gedrag knoppen"
+          },
+          "collapsed": false,
+          "children": [
+            {
+              "id": "external_switch_inclusion",
+              "value": true,
+              "label": {
+                "en": "Enable external switch",
+                "nl": "External schakelaar gebruiken"
+              },
+              "hint": {
+                "en": "This parameter (7) determines the option to use an external switch to include or exclude the device from the network.",
+                "nl": "Deze parameter (7) schakelt de optie in om een externe schakelaar te gebruiken om de dimmer toe te voegen of te verwijderen uit het netwerk."
+              },
+              "zwave": {
+                "index": 7,
+                "size": 1
+              },
+              "type": "checkbox"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Dimming",
+            "nl": "Dimmen"
+          },
+          "collapsed": true,
+          "children": [
+            {
+              "id": "dim_duration",
+              "label": {
+                "en": "Dim duration",
+                "nl": "Dim transitietijd"
+              },
+              "hint": {
+                "en": "This parameter (4) determines the default dim duration. Values: 1 - 127 seconds, 0: Instantly. Default: 1 second",
+                "nl": "Deze parameter (4) bepaalt de standaard dim transitietijd in seconden. Waardes: 1 - 127 seconden, 0: Instantaan. Standaard: 1 seconde"
+              },
+              "zwave": {
+                "index": 4,
+                "size": 1,
+                "signed": false
+              },
+              "type": "number",
+              "value": 1,
+              "attr": {
+                "min": 0,
+                "max": 127
+              }
+            },
+            {
+              "id": "minimum_brightness",
+              "value": 0,
+              "label": {
+                "en": "Minimum brightness value",
+                "nl": "Laagste dim niveau"
+              },
+              "hint": {
+                "en": "This parameter (5) determines the minimum brightness level. Default: 0 %",
+                "nl": "Deze parameter (5) bepaalt het laagste dim niveau. Standaard: 0 %"
+              },
+              "zwave": {
+                "index": 5,
+                "size": 1
+              },
+              "attr": {
+                "min": 0,
+                "max": 50
+              },
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Other",
+            "nl": "Overige"
+          },
+          "collapsed": true,
+          "children": [
+            {
+              "id": "save_state",
+              "value": "0",
+              "label": {
+                "en": "Restore state after power failure",
+                "nl": "Herstel status na stroomonderbreking"
+              },
+              "hint": {
+                "en": "This parameter (2) determines whether after a power failure the device should be restored to the state it had before the power failure.",
+                "nl": "Deze parameter (2) bepaalt of het apparaat na een stroomonderbreking moet worden ingesteld zoals deze voor de stroomonderbreking stond ingesteld."
+              },
+              "zwave": {
+                "index": 2,
+                "size": 1
+              },
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Turn off load (default)",
+                    "nl": "Schakel de lamp uit (standaard)"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Turn on load",
+                    "nl": "Schakel de lamp in"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Restore state",
+                    "nl": "Herstel toestand"
+                  }
+                }
+              ],
+              "type": "dropdown"
+            },
+            {
+              "id": "send_basic_report",
+              "value": true,
+              "label": {
+                "en": "Send `BASIC report`",
+                "nl": "Stuur `BASIC report`"
+              },
+              "hint": {
+                "en": "This parameter (3) determines whether the `BASIC report` is send to the Lifeline when the load state changed. Default: activated",
+                "nl": "Deze parameter (3) bepaalt of het `BASIC report` wordt verstuurd naar de controller wanneer de toestand van de dimmer verandert. Standaard: ingeschakeld"
+              },
+              "zwave": {
+                "index": 3,
+                "size": 1
+              },
+              "type": "checkbox"
+            },
+            {
+              "id": "driving_type",
+              "value": "0",
+              "label": {
+                "en": "MOSFET driving type"
+              },
+              "hint": {
+                "en": "This parameter (6) determines the used MOSFET driving type. Default: Leading edge",
+                "nl": "Deze parameter (6) bepaalt de gebruikte MOSFET driving type. Standaard: Fase aansnijding"
+              },
+              "zwave": {
+                "index": 6,
+                "size": 1
+              },
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Leading edge (default)",
+                    "nl": "Fase aansnijding (standaard)"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Trailing edge",
+                    "nl": "Fase afsnijding"
+                  }
+                }
+              ],
+              "type": "dropdown"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ZW_Dimmer_Rotary",
+      "name": {
+        "en": "Dimmer - Rotary (Z-wave)"
+      },
+      "class": "light",
+      "capabilities": [
+        "dim",
+        "onoff"
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "setOnDim": false
+        },
+        "dim": {
+          "opts": {
+            "duration": true
+          }
+        }
+      },
+      "energy": {
+        "approximation": {
+          "usageOn": 200,
+          "usageOff": 0
+        }
+      },
+      "icon": "/drivers/ZW_Dimmer_Rotary/assets/icon.svg",
+      "images": {
+        "large": "/drivers/ZW_Dimmer_Rotary/assets/images/large.png",
+        "small": "/drivers/ZW_Dimmer_Rotary/assets/images/small.png"
+      },
+      "zwave": {
+        "manufacturerId": 1080,
+        "productTypeId": [
+          514
+        ],
+        "productId": [
+          2
+        ],
+        "learnmode": {
+          "image": "/drivers/ZW_Dimmer_Rotary/assets/learnmode.svg",
+          "instruction": {
+            "en": "1. Power on the in-wall dimmer and set it into inclusion mode. \nTriple press the reset button on the dimmer, it willset the dimmer to inclusion mode. A purple light will show for 10 seconds while the device is in inclusion mode"
+          }
+        },
+        "unlearnmode": {
+          "image": "/drivers/ZW_Dimmer_Rotary/assets/learnmode.svg",
+          "instruction": {
+            "en": "To remove the dimmer, triple press the reset button. \nThe dimmer will be set to exclusion mode, and waiting to be excluded, then the dimmer will be excluded to the network."
+          }
+        },
+        "associationGroups": [
+          1
+        ],
+        "associationGroupsOptions": {
+          "1": {
+            "hint": {
+              "en": "Lifeline association group (do not change)"
+            }
+          }
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Button behaviour",
+            "nl": "Gedrag knoppen"
+          },
+          "collapsed": false,
+          "children": [
+            {
+              "id": "external_switch_inclusion",
+              "value": false,
+              "label": {
+                "en": "Enable external switch",
+                "nl": "External schakelaar gebruiken"
+              },
+              "hint": {
+                "en": "This parameter (5) determines the option to use an external switch to include or exclude the device from the network. Default: Disabled",
+                "nl": "Deze parameter (5) schakelt de optie in om een externe schakelaar te gebruiken om de dimmer toe te voegen of te verwijderen uit het netwerk."
+              },
+              "zwave": {
+                "index": 5,
+                "size": 1
+              },
+              "type": "checkbox"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Dimming",
+            "nl": "Dimmen"
+          },
+          "collapsed": true,
+          "children": [
+            {
+              "id": "dim_duration",
+              "label": {
+                "en": "Dim duration",
+                "nl": "Dim transitietijd"
+              },
+              "hint": {
+                "en": "This parameter (3) determines the default dim duration. Values: 0 - 100. 0: Instantly. 100: Slow. Default: 5"
+              },
+              "zwave": {
+                "index": 3,
+                "size": 1,
+                "signed": false
+              },
+              "type": "number",
+              "value": 5,
+              "attr": {
+                "min": 0,
+                "max": 100
+              }
+            },
+            {
+              "id": "on_off_dim_duration",
+              "label": {
+                "en": "On/off fade duration"
+              },
+              "hint": {
+                "en": "This parameter (8) determines the fade duration when turning dimmer on and off. Values: 0-60 seconds. Default: 0"
+              },
+              "zwave": {
+                "index": 8,
+                "size": 1,
+                "signed": false
+              },
+              "type": "number",
+              "value": 0,
+              "attr": {
+                "min": 0,
+                "max": 60
+              }
+            },
+            {
+              "id": "dim_method",
+              "value": "0",
+              "label": {
+                "en": "Dim method"
+              },
+              "hint": {
+                "en": "This parameter (6) determines if the dimmer uses linear or logarithmic dimming."
+              },
+              "zwave": {
+                "index": 6,
+                "size": 1
+              },
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Linear (default)"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Logarithmic"
+                  }
+                }
+              ],
+              "type": "dropdown"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Other",
+            "nl": "Overige"
+          },
+          "collapsed": true,
+          "children": [
+            {
+              "id": "default_brightness",
+              "label": {
+                "en": "Default brightness"
+              },
+              "hint": {
+                "en": "This parameter (7) determines the default brightness when turned on. 0: Dimmer will use state after power is restored (parameter 1). Values: 0 - 99. Default: 0"
+              },
+              "zwave": {
+                "index": 7,
+                "size": 1,
+                "signed": false
+              },
+              "type": "number",
+              "value": 0,
+              "attr": {
+                "min": 0,
+                "max": 99
+              }
+            },
+            {
+              "id": "save_state",
+              "value": "0",
+              "label": {
+                "en": "Restore state after power failure",
+                "nl": "Herstel status na stroomonderbreking"
+              },
+              "hint": {
+                "en": "This parameter (1) determines whether after a power failure the device should be restored to the state it had before the power failure.",
+                "nl": "Deze parameter (1) bepaalt of het apparaat na een stroomonderbreking moet worden ingesteld zoals deze voor de stroomonderbreking stond ingesteld."
+              },
+              "zwave": {
+                "index": 1,
+                "size": 1
+              },
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Turn off light (default)",
+                    "nl": "Schakel de lamp uit (standaard)"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Turn on light",
+                    "nl": "Schakel de lamp in"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Restore state",
+                    "nl": "Herstel toestand"
+                  }
+                }
+              ],
+              "type": "dropdown"
+            },
+            {
+              "id": "send_basic_report",
+              "value": true,
+              "label": {
+                "en": "Send `BASIC report`",
+                "nl": "Stuur `BASIC report`"
+              },
+              "hint": {
+                "en": "This parameter (2) determines whether the `BASIC report` is sent to the Lifeline when the load state changed. Default: activated",
+                "nl": "Deze parameter (2) bepaalt of het `BASIC report` wordt verstuurd naar de controller wanneer de toestand van de dimmer verandert. Standaard: ingeschakeld"
+              },
+              "zwave": {
+                "index": 2,
+                "size": 1
+              },
+              "type": "checkbox"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ZW_InWallSwitch",
+      "name": {
+        "en": "Switch (Z-wave)"
+      },
+      "class": "light",
+      "capabilities": [
+        "onoff"
+      ],
+      "energy": {
+        "approximation": {
+          "usageOn": 400,
+          "usageOff": 0
+        }
+      },
+      "icon": "/drivers/ZW_InWallSwitch/assets/icon.svg",
+      "images": {
+        "large": "/drivers/ZW_InWallSwitch/assets/images/large.png",
+        "small": "/drivers/ZW_InWallSwitch/assets/images/small.png"
+      },
+      "zwave": {
+        "manufacturerId": [
+          816,
+          1080
+        ],
+        "productTypeId": [
+          512
+        ],
+        "productId": [
+          53254
+        ],
+        "learnmode": {
+          "image": "/drivers/ZW_InWallSwitch/assets/learnmode.svg",
+          "instruction": {
+            "en": "1. Power on the in-wall switch and set it into inclusion mode. \nThere are two methods to set the in-wall switch into inclusion mode:\n1)Repower on the switch, it will be set into inclusion mode automatically, and waiting to be included.\n2)Triple press the reset button on the switch, it will set the plug into inclusion mode.\nThe connected light will stay solid on for 3 seconds to indicate successful inclusion."
+          }
+        },
+        "unlearnmode": {
+          "image": "/drivers/ZW_InWallSwitch/assets/learnmode.svg",
+          "instruction": {
+            "en": "To remove the switch, triple press the reset button. \nThe switch will be set to exclusion mode, and waiting to be excluded, then the switch will be excluded to the network."
+          }
+        },
+        "associationGroups": [
+          1
+        ],
+        "associationGroupsOptions": {
+          "1": {
+            "hint": {
+              "en": "Lifeline association group (do not change)",
+              "nl": "Lifeline association group (niet aanpassen)"
+            }
+          }
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Button behaviour",
+            "nl": "Gedrag knoppen"
+          },
+          "collapsed": false,
+          "children": [
+            {
+              "id": "external_switch_inclusion",
+              "value": true,
+              "label": {
+                "en": "Enable external switch",
+                "nl": "External schakelaar gebruiken"
+              },
+              "hint": {
+                "en": "This parameter (7) determines the option to use an external switch to include or exclude the device from the network.",
+                "nl": "Deze parameter (7) schakelt de optie in om een externe schakelaar te gebruiken om de dimmer toe te voegen of te verwijderen uit het netwerk."
+              },
+              "zwave": {
+                "index": 7,
+                "size": 1
+              },
+              "type": "checkbox"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Other",
+            "nl": "Overige"
+          },
+          "collapsed": true,
+          "children": [
+            {
+              "id": "save_state",
+              "value": "0",
+              "label": {
+                "en": "Restore state after power failure",
+                "nl": "Herstel status na stroomonderbreking"
+              },
+              "hint": {
+                "en": "This parameter (2) determines whether after a power failure the device should be restored to the state it had before the power failure.",
+                "nl": "Deze parameter (2) bepaalt of het apparaat na een stroomonderbreking moet worden ingesteld zoals deze voor de stroomonderbreking stond ingesteld."
+              },
+              "zwave": {
+                "index": 2,
+                "size": 1
+              },
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Turn off load (default)",
+                    "nl": "Schakel de lamp uit (standaard)"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Turn on load",
+                    "nl": "Schakel de lamp in"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Restore state",
+                    "nl": "Herstel toestand"
+                  }
+                }
+              ],
+              "type": "dropdown"
+            },
+            {
+              "id": "send_basic_report",
+              "value": true,
+              "label": {
+                "en": "Send `BASIC report`",
+                "nl": "Stuur `BASIC report`"
+              },
+              "hint": {
+                "en": "This parameter (3) determines whether the `BASIC report` is send to the Lifeline when the load state changed. Default: activated",
+                "nl": "Deze parameter (3) bepaalt of het `BASIC report` wordt verstuurd naar de controller wanneer de toestand van de dimmer verandert. Standaard: ingeschakeld"
+              },
+              "zwave": {
+                "index": 3,
+                "size": 1
+              },
+              "type": "checkbox"
+            },
+            {
+              "id": "driving_type",
+              "value": "0",
+              "label": {
+                "en": "MOSFET driving type"
+              },
+              "hint": {
+                "en": "This parameter (6) determines the used MOSFET driving type. Default: Leading edge",
+                "nl": "Deze parameter (6) bepaalt de gebruikte MOSFET driving type. Standaard: Fase aansnijding"
+              },
+              "zwave": {
+                "index": 6,
+                "size": 1
+              },
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Leading edge (default)",
+                    "nl": "Fase aansnijding (standaard)"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Trailing edge",
+                    "nl": "Fase afsnijding"
+                  }
+                }
+              ],
+              "type": "dropdown"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ZW_Remote_4",
+      "name": {
+        "en": "Remote - 4 channel (Z-wave)",
+        "nl": "Afstandsbediening - 4 kanaals (Z-wave)"
+      },
+      "icon": "/drivers/ZW_Remote_4/assets/icon.svg",
+      "images": {
+        "large": "/drivers/ZW_Remote_4/assets/images/large.png",
+        "small": "/drivers/ZW_Remote_4/assets/images/small.png"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_battery",
+        "alarm_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "CR2450"
+        ]
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon"
+          },
+          {
+            "id": "battery",
+            "capabilities": [
+              "measure_battery"
+            ],
+            "options": {
+              "showTitle": true
+            }
+          }
+        ]
+      },
+      "zwave": {
+        "manufacturerId": [
+          816,
+          1080
+        ],
+        "productTypeId": 768,
+        "productId": 45826,
+        "zwaveAllianceProductId": 3334,
+        "zwaveAllianceProductDocumentation": "https://products.z-wavealliance.org/ProductManual/File?folder=&filename=Manuals/3334/SR-ZV9001K8-DIM-G4%20Instruction%2020190314.pdf",
+        "imageRemotePath": "",
+        "learnmode": {
+          "image": "/drivers/ZW_Remote_4/assets/learnmode.svg",
+          "instruction": {
+            "en": "To include the remote to Homey: \nPress and hold down both I and O (upper rockers) over 3 seconds. \nThe red LED indicator will turn on and the remote will be set to adding mode. \nThe red LED indicator blinking 6 times will indicate successful inclusion.",
+            "nl": "Om de afstandsbediening aan Homey toe te voegen: \n1. Hou beide knoppen I en O (bovenste knoppen) ingedrukt voor 3 seconden. \nDe rode LED indicator gaat aan en de wall controller is in toevoegmodus gezet. \nDe rode LED indicator knippert 6 keer wanneer het toevoegen succesvol is."
+          }
+        },
+        "unlearnmode": {
+          "image": "/drivers/ZW_Remote_4/assets/learnmode.svg",
+          "instruction": {
+            "en": "To remove the remote from Homey: \nPress and hold down both buttons I and O (upper rockers) over 3 seconds. \nThe red LED indicator will turn on and the remote will be set to adding mode. \nThe red LED indicator blinking 4 times will indicate successful inclusion.",
+            "nl": "Om de afstandsbediening van Homey te verwijderen: \n1. Hou beide knoppen I en O (bovenste knoppen) ingedrukt voor 3 seconden. \nDe rode LED indicator gaat aan en de wall controller is in toevoegmodus gezet. \nDe rode LED indicator knippert 4 keer wanneer het toevoegen succesvol is."
+          }
+        },
+        "associationGroups": [
+          1
+        ],
+        "associationGroupsOptions": {
+          "1": {
+            "hint": {
+              "en": "Lifeline. Scene Notification and battery reporting is addressed to this group. Only one node can be assigned to this association group. \nDefault: 1 (Homey's ID)",
+              "nl": "Lifeline: Association Groep 1 wordt gebruikt om alle rapportages door te geven. Slechts een node kan toegevoegd worden aan deze associatie groep. \nStandaard: 1 (Homey's ID)"
+            }
+          },
+          "2": {
+            "hint": {
+              "en": "Group 1 (upper rockers): Adding other Z-wave devices to this group will enable direct control from Wall controller to that device:\nShort press: on/off (BASIC_SET) command \nLong press: increase / decrease dim-level command (SWITCH_MULTILEVEL).",
+              "nl": "Groep 1 (bovenste knoppen): Het toevoegen van andere Z-wave devices aan deze groep zal directe controle van de Wall controller over deze devices toevoegen:\nKort ingedrukt: on/off (BASIC_SET) commando\nLang ingedrukt: verhoog / verlaag dim-level commando (SWITCH_MULTILEVEL)."
+            }
+          },
+          "3": {
+            "hint": {
+              "en": "Group 2: Adding other Z-wave devices to this group will enable direct control from Wall controller to that device:\nShort press: on/off (BASIC_SET) command \nLong press: increase / decrease dim-level command (SWITCH_MULTILEVEL).",
+              "nl": "Groep 2: Het toevoegen van andere Z-wave devices aan deze groep zal directe controle van de Wall controller over deze devices toevoegen:\nKort ingedrukt: on/off (BASIC_SET) commando\nLang ingedrukt: verhoog / verlaag dim-level commando (SWITCH_MULTILEVEL)."
+            }
+          },
+          "4": {
+            "hint": {
+              "en": "Group 3: Adding other Z-wave devices to this group will enable direct control from Wall controller to that device:\nShort press: on/off (BASIC_SET) command \nLong press: increase / decrease dim-level command (SWITCH_MULTILEVEL).",
+              "nl": "Groep 3: Het toevoegen van andere Z-wave devices aan deze groep zal directe controle van de Wall controller over deze devices toevoegen:\nKort ingedrukt: on/off (BASIC_SET) commando\nLang ingedrukt: verhoog / verlaag dim-level commando (SWITCH_MULTILEVEL)."
+            }
+          },
+          "5": {
+            "hint": {
+              "en": "Group 4 (bottom rockers): Adding other Z-wave devices to this group will enable direct control from Wall controller to that device:\nShort press: on/off (BASIC_SET) command \nLong press: increase / decrease dim-level command (SWITCH_MULTILEVEL).",
+              "nl": "Groep 4 (onderste knoppen): Het toevoegen van andere Z-wave devices aan deze groep zal directe controle van de Wall controller over deze devices toevoegen:\nKort ingedrukt: on/off (BASIC_SET) commando\nLang ingedrukt: verhoog / verlaag dim-level commando (SWITCH_MULTILEVEL)."
+            }
+          }
+        }
+      },
+      "settings": [
+        {
+          "id": "Wake-up_notification",
+          "value": "Wake up Wall controller before save",
+          "type": "label",
+          "label": {
+            "en": "Note:"
+          },
+          "hint": {
+            "en": "Short press a button to wake-up the Wall controller for 3 seconds, then press and hold I and O together over one second to wake-up the wall switch for 7 seconds.\nThen press save.",
+            "nl": "Druk kort op een knop om de wand controller te activeren, houdt daarna I en O tegelijkertijd ingedrukt om de Z-push voor 7 seconden wakker te houden.\nDruk daarna op save."
+          }
+        }
+      ]
+    },
+    {
+      "id": "ZW_WallController_2",
+      "name": {
+        "en": "Wall controller - 2 button (Z-wave)"
+      },
+      "icon": "/drivers/ZW_WallController_2/assets/icon.svg",
+      "images": {
+        "large": "/drivers/ZW_WallController_2/assets/images/large.png",
+        "small": "/drivers/ZW_WallController_2/assets/images/small.png"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_battery",
+        "alarm_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "CR2450"
+        ]
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon"
+          },
+          {
+            "id": "battery",
+            "capabilities": [
+              "measure_battery"
+            ],
+            "options": {
+              "showTitle": true
+            }
+          }
+        ]
+      },
+      "zwave": {
+        "manufacturerId": [
+          816,
+          1080
+        ],
+        "productTypeId": 768,
+        "productId": 41743,
+        "productDocumentation": "",
+        "pid": 9999,
+        "imageRemotePath": "",
+        "learnmode": {
+          "image": "/drivers/ZW_WallController_2/assets/learnmode.svg",
+          "instruction": {
+            "en": "To include the wall controller to Homey: \nPress and hold down both buttons I and O of Group 2 (upper rockers) over 3 seconds. \nThe blue LED indicator will turn on and the remote will be set to adding mode. \nThe blue LED indicator blinking 6 times will indicate successful inclusion.",
+            "nl": "Om de wall controller aan Homey toe te voegen: \n1. Hou beide knoppen I en O van Groep 2 (bovenste knoppen) ingedrukt voor 3 seconden. \nDe blauwe LED indicator gaat aan en de wall controller is in toevoegmodus gezet. \nDe blauwe LED indicator knippert 6 keer wanneer het toevoegen succesvol is."
+          }
+        },
+        "unlearnmode": {
+          "image": "/drivers/ZW_WallController_2/assets/learnmode.svg",
+          "instruction": {
+            "en": "To remove the wall controller to Homey: \nPress and hold down both buttons I and O of Group 2 (upper rockers) over 3 seconds. \nThe blue LED indicator will turn on and the remote will be set to adding mode. \nThe blue LED indicator blinking 4 times will indicate successful removal.",
+            "nl": "Om de wall controller van Homey te verwijderen: \n1. Hou beide knoppen I en O van Groep 2 (bovenste knoppen) ingedrukt voor 3 seconden. \nDe blauwe LED indicator gaat aan en de wall controller is in toevoegmodus gezet. \nDe blauwe LED indicator knippert 4 keer wanneer het verwijderen succesvol is."
+          }
+        },
+        "associationGroups": [
+          1
+        ],
+        "associationGroupsOptions": {
+          "1": {
+            "hint": {
+              "en": "Lifeline. Scene Notification and battery reporting is addressed to this group. Only one node can be assigned to this association group. \nDefault: 1 (Homey's ID)",
+              "nl": "Lifeline: Association Groep 1 wordt gebruikt om alle rapportages door te geven. Slechts een node kan toegevoegd worden aan deze associatie groep. \nStandaard: 1 (Homey's ID)"
+            }
+          },
+          "2": {
+            "hint": {
+              "en": "Group 2: Adding other Z-wave devices to this group will enable direct control from Wall controller to that device:\nShort press: on/off (BASIC_SET) command \nLong press: increase / decrease dim-level command (SWITCH_MULTILEVEL).",
+              "nl": "Groep 2: Het toevoegen van andere Z-wave devices aan deze groep zal directe controle van de Wall controller over deze devices toevoegen:\nKort ingedrukt: on/off (BASIC_SET) commando\nLang ingedrukt: verhoog / verlaag dim-level commando (SWITCH_MULTILEVEL)."
+            }
+          }
+        }
+      },
+      "settings": [
+        {
+          "id": "Wake-up_notification",
+          "value": "Wake up Z-push before save",
+          "type": "label",
+          "label": {
+            "en": "Note:"
+          },
+          "hint": {
+            "en": "Short press a button to wake-up the Z-push for 3 seconds, then press and hold I and O together over one second to wake-up the wall switch for 7 seconds.\nThen press save.",
+            "nl": "Druk kort op een knop om de Z-push te activeren, houdt daarna I en O tegelijkertijd ingedrukt om de Z-push voor 7 seconden wakker te houden.\nDruk daarna op save."
+          }
+        }
+      ]
+    },
+    {
+      "id": "ZW_WallController_4",
+      "name": {
+        "en": "Wall controller - 4 button (1 and 2 channel) (Z-wave)"
+      },
+      "icon": "/drivers/ZW_WallController_4/assets/icon.svg",
+      "images": {
+        "large": "/drivers/ZW_WallController_4/assets/images/large.png",
+        "small": "/drivers/ZW_WallController_4/assets/images/small.png"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_battery",
+        "alarm_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "CR2450"
+        ]
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon"
+          },
+          {
+            "id": "battery",
+            "capabilities": [
+              "measure_battery"
+            ],
+            "options": {
+              "showTitle": true
+            }
+          }
+        ]
+      },
+      "zwave": {
+        "manufacturerId": [
+          816,
+          1080
+        ],
+        "productTypeId": 768,
+        "productId": [
+          41734,
+          41744
+        ],
+        "productDocumentation": "",
+        "pid": 9999,
+        "imageRemotePath": "",
+        "learnmode": {
+          "image": "/drivers/ZW_WallController_4/assets/learnmode.svg",
+          "instruction": {
+            "en": "To include the wall controller to Homey: \nPress and hold down both buttons I and O of Group 2 (upper rockers) over 3 seconds. \nThe blue LED indicator will turn on and the remote will be set to adding mode. \nThe blue LED indicator blinking 6 times will indicate successful inclusion.",
+            "nl": "Om de wall controller aan Homey toe te voegen: \n1. Hou beide knoppen I en O van Groep 2 (bovenste knoppen) ingedrukt voor 3 seconden. \nDe blauwe LED indicator gaat aan en de wall controller is in toevoegmodus gezet. \nDe blauwe LED indicator knippert 6 keer wanneer het toevoegen succesvol is."
+          }
+        },
+        "unlearnmode": {
+          "image": "/drivers/ZW_WallController_4/assets/learnmode.svg",
+          "instruction": {
+            "en": "To remove the wall controller to Homey: \nPress and hold down both buttons I and O of Group 2 (upper rockers) over 3 seconds. \nThe blue LED indicator will turn on and the remote will be set to adding mode. \nThe blue LED indicator blinking 4 times will indicate successful removal.",
+            "nl": "Om de wall controller van Homey te verwijderen: \n1. Hou beide knoppen I en O van Groep 2 (bovenste knoppen) ingedrukt voor 3 seconden. \nDe blauwe LED indicator gaat aan en de wall controller is in toevoegmodus gezet. \nDe blauwe LED indicator knippert 4 keer wanneer het verwijderen succesvol is."
+          }
+        },
+        "associationGroups": [
+          1
+        ],
+        "associationGroupsOptions": {
+          "1": {
+            "hint": {
+              "en": "Lifeline. Scene Notification and battery reporting is addressed to this group. Only one node can be assigned to this association group. \nDefault: 1 (Homey's ID)",
+              "nl": "Lifeline: Association Groep 1 wordt gebruikt om alle rapportages door te geven. Slechts een node kan toegevoegd worden aan deze associatie groep. \nStandaard: 1 (Homey's ID)"
+            }
+          },
+          "2": {
+            "hint": {
+              "en": "Group 2 (upper rockers): Adding other Z-wave devices to this group will enable direct control from Wall controller to that device:\nShort press: on/off (BASIC_SET) command \nLong press: increase / decrease dim-level command (SWITCH_MULTILEVEL).",
+              "nl": "Groep 2 (bovenste knoppen): Het toevoegen van andere Z-wave devices aan deze groep zal directe controle van de Wall controller over deze devices toevoegen:\nKort ingedrukt: on/off (BASIC_SET) commando\nLang ingedrukt: verhoog / verlaag dim-level commando (SWITCH_MULTILEVEL)."
+            }
+          },
+          "3": {
+            "hint": {
+              "en": "Group 3: Adding other Z-wave devices to this group will enable direct control from Wall controller to that device:\nShort press: on/off (BASIC_SET) command \nLong press: increase / decrease dim-level command (SWITCH_MULTILEVEL).",
+              "nl": "Groep 3: Het toevoegen van andere Z-wave devices aan deze groep zal directe controle van de Wall controller over deze devices toevoegen:\nKort ingedrukt: on/off (BASIC_SET) commando\nLang ingedrukt: verhoog / verlaag dim-level commando (SWITCH_MULTILEVEL)."
+            }
+          }
+        }
+      },
+      "settings": [
+        {
+          "id": "Wake-up_notification",
+          "value": "Wake up Wall controller before save",
+          "type": "label",
+          "label": {
+            "en": "Note:"
+          },
+          "hint": {
+            "en": "Short press a button to wake-up the Wall controller for 3 seconds, then press and hold I and O together over one second to wake-up the wall switch for 7 seconds.\nThen press save.",
+            "nl": "Druk kort op een knop om de wand controller te activeren, houdt daarna I en O tegelijkertijd ingedrukt om de Z-push voor 7 seconden wakker te houden.\nDruk daarna op save."
+          }
+        }
+      ]
+    },
+    {
+      "id": "ZW_WallController_8",
+      "name": {
+        "en": "Wall controller - 8 button (white and black) (Z-wave)"
+      },
+      "icon": "/drivers/ZW_WallController_8/assets/icon.svg",
+      "images": {
+        "large": "/drivers/ZW_WallController_8/assets/images/large.png",
+        "small": "/drivers/ZW_WallController_8/assets/images/small.png"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_battery",
+        "alarm_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "CR2450"
+        ]
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon"
+          },
+          {
+            "id": "battery",
+            "capabilities": [
+              "measure_battery"
+            ],
+            "options": {
+              "showTitle": true
+            }
+          }
+        ]
+      },
+      "zwave": {
+        "manufacturerId": [
+          816,
+          1080
+        ],
+        "productTypeId": 768,
+        "productId": 41733,
+        "zwaveAllianceProductId": 3334,
+        "zwaveAllianceProductDocumentation": "https://products.z-wavealliance.org/ProductManual/File?folder=&filename=Manuals/3334/SR-ZV9001K8-DIM-G4%20Instruction%2020190314.pdf",
+        "imageRemotePath": "",
+        "learnmode": {
+          "image": "/drivers/ZW_WallController_8/assets/learnmode.svg",
+          "instruction": {
+            "en": "To include the wall controller to Homey: \nPress and hold down both buttons I and O of Group 2 (upper rockers) over 3 seconds. \nThe blue LED indicator will turn on and the remote will be set to adding mode. \nThe blue LED indicator blinking 6 times will indicate successful inclusion.",
+            "nl": "Om de wall controller aan Homey toe te voegen: \n1. Hou beide knoppen I en O van Groep 2 (bovenste knoppen) ingedrukt voor 3 seconden. \nDe blauwe LED indicator gaat aan en de wall controller is in toevoegmodus gezet. \nDe blauwe LED indicator knippert 6 keer wanneer het toevoegen succesvol is."
+          }
+        },
+        "unlearnmode": {
+          "image": "/drivers/ZW_WallController_8/assets/learnmode.svg",
+          "instruction": {
+            "en": "To remove the wall controller to Homey: \nPress and hold down both buttons I and O of Group 2 (upper rockers) over 3 seconds. \nThe blue LED indicator will turn on and the remote will be set to adding mode. \nThe blue LED indicator blinking 4 times will indicate successful removal.",
+            "nl": "Om de wall controller van Homey te verwijderen: \n1. Hou beide knoppen I en O van Groep 2 (bovenste knoppen) ingedrukt voor 3 seconden. \nDe blauwe LED indicator gaat aan en de wall controller is in toevoegmodus gezet. \nDe blauwe LED indicator knippert 4 keer wanneer het verwijderen succesvol is."
+          }
+        },
+        "associationGroups": [
+          1
+        ],
+        "associationGroupsOptions": {
+          "1": {
+            "hint": {
+              "en": "Lifeline. Scene Notification and battery reporting is addressed to this group. Only one node can be assigned to this association group. \nDefault: 1 (Homey's ID)",
+              "nl": "Lifeline: Association Groep 1 wordt gebruikt om alle rapportages door te geven. Slechts een node kan toegevoegd worden aan deze associatie groep. \nStandaard: 1 (Homey's ID)"
+            }
+          },
+          "2": {
+            "hint": {
+              "en": "Group 2 (upper rockers): Adding other Z-wave devices to this group will enable direct control from Wall controller to that device:\nShort press: on/off (BASIC_SET) command \nLong press: increase / decrease dim-level command (SWITCH_MULTILEVEL).",
+              "nl": "Groep 2 (bovenste knoppen): Het toevoegen van andere Z-wave devices aan deze groep zal directe controle van de Wall controller over deze devices toevoegen:\nKort ingedrukt: on/off (BASIC_SET) commando\nLang ingedrukt: verhoog / verlaag dim-level commando (SWITCH_MULTILEVEL)."
+            }
+          },
+          "3": {
+            "hint": {
+              "en": "Group 3: Adding other Z-wave devices to this group will enable direct control from Wall controller to that device:\nShort press: on/off (BASIC_SET) command \nLong press: increase / decrease dim-level command (SWITCH_MULTILEVEL).",
+              "nl": "Groep 3: Het toevoegen van andere Z-wave devices aan deze groep zal directe controle van de Wall controller over deze devices toevoegen:\nKort ingedrukt: on/off (BASIC_SET) commando\nLang ingedrukt: verhoog / verlaag dim-level commando (SWITCH_MULTILEVEL)."
+            }
+          },
+          "4": {
+            "hint": {
+              "en": "Group 4: Adding other Z-wave devices to this group will enable direct control from Wall controller to that device:\nShort press: on/off (BASIC_SET) command \nLong press: increase / decrease dim-level command (SWITCH_MULTILEVEL).",
+              "nl": "Groep 4: Het toevoegen van andere Z-wave devices aan deze groep zal directe controle van de Wall controller over deze devices toevoegen:\nKort ingedrukt: on/off (BASIC_SET) commando\nLang ingedrukt: verhoog / verlaag dim-level commando (SWITCH_MULTILEVEL)."
+            }
+          },
+          "5": {
+            "hint": {
+              "en": "Group 5 (bottom rockers): Adding other Z-wave devices to this group will enable direct control from Wall controller to that device:\nShort press: on/off (BASIC_SET) command \nLong press: increase / decrease dim-level command (SWITCH_MULTILEVEL).",
+              "nl": "Groep 5 (onderste knoppen): Het toevoegen van andere Z-wave devices aan deze groep zal directe controle van de Wall controller over deze devices toevoegen:\nKort ingedrukt: on/off (BASIC_SET) commando\nLang ingedrukt: verhoog / verlaag dim-level commando (SWITCH_MULTILEVEL)."
+            }
+          }
+        }
+      },
+      "settings": [
+        {
+          "id": "Wake-up_notification",
+          "value": "Wake up Wall controller before save",
+          "type": "label",
+          "label": {
+            "en": "Note:"
+          },
+          "hint": {
+            "en": "Short press a button to wake-up the Wall controller for 3 seconds, then press and hold I and O together over one second to wake-up the wall switch for 7 seconds.\nThen press save.",
+            "nl": "Druk kort op een knop om de wand controller te activeren, houdt daarna I en O tegelijkertijd ingedrukt om de Z-push voor 7 seconden wakker te houden.\nDruk daarna op save."
+          }
+        }
+      ]
+    },
+    {
+      "id": "ZW_WallPlug",
+      "name": {
+        "en": "Wall plug - Actuator (Z-wave)"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff"
+      ],
+      "images": {
+        "large": "/drivers/ZW_WallPlug/assets/images/large.png",
+        "small": "/drivers/ZW_WallPlug/assets/images/small.png"
+      },
+      "zwave": {
+        "manufacturerId": [
+          816,
+          1080
+        ],
+        "productTypeId": [
+          513
+        ],
+        "productId": [
+          53252
+        ],
+        "learnmode": {
+          "instruction": {
+            "en": "1. Power on the smart plug, make sure it does not belong to any Z-Wave network. Press and hold down action button for over 10 seconds, if the LED indicator flashes yellow slowly, it means it does not belong to any network. Repower the smart plug/Triple press the action button on the smart plug to put it into inclusion mode."
+          }
+        },
+        "unlearnmode": {
+          "instruction": {
+            "en": "To remove the smart plug, triple press the reset button. \nThe smart plug will be set to exclusion mode, and waiting to be excluded, then the smart plug will be excluded to the network."
+          }
+        },
+        "associationGroups": [
+          1
+        ],
+        "associationGroupsOptions": {
+          "1": {
+            "hint": {
+              "en": "Lifeline association group (do not change)"
+            }
+          }
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Button behaviour",
+            "nl": "Gedrag knoppen"
+          },
+          "collapsed": false,
+          "children": [
+            {
+              "id": "external_switch_inclusion",
+              "value": true,
+              "label": {
+                "en": "Enable external switch",
+                "nl": "External schakelaar gebruiken"
+              },
+              "hint": {
+                "en": "This parameter (7) determines the option to use an external switch to include or exclude the device from the network.",
+                "nl": "Deze parameter (7) schakelt de optie in om een externe schakelaar te gebruiken om de dimmer toe te voegen of te verwijderen uit het netwerk."
+              },
+              "zwave": {
+                "index": 7,
+                "size": 1
+              },
+              "type": "checkbox"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

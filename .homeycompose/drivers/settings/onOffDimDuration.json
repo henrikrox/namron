@@ -1,0 +1,19 @@
+{
+  "label": {
+    "en": "On/off fade duration"
+  },
+  "hint": {
+    "en": "This parameter ({{zwaveParameterIndex}}) determines the fade duration when turning dimmer on and off. Values: 0-60 seconds. Default: 0"
+  },
+  "zwave": {
+    "index": 8,
+    "size": 1,
+    "signed": false
+  },
+  "type": "number",
+  "value": 0,
+  "attr": {
+    "min": 0,
+    "max": 60
+  }
+}

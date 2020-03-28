@@ -1,0 +1,35 @@
+{
+  "1.2.1": {
+    "en": "Support for Remote, Dimmer, and 1 channel wall controller"
+  },
+  "1.3.0": {
+    "en": "Support for wall plug"
+  },
+  "1.3.1": {
+    "en": "Support for Dimmer 3wire, Remote 4 button, wall plug and 1 channel wall controller"
+  },
+  "1.3.2": {
+    "en": "Support for black 8 button panel"
+  },
+  "1.3.3": {
+    "en": "Support for black 8 button panel"
+  },
+  "1.3.4": {
+    "en": "Rotary dimmer support"
+  },
+  "1.3.5": {
+    "en": "Rotary dimmer parameters"
+  },
+  "1.3.6": {
+    "en": "In-wall switch support"
+  },
+  "1.3.7": {
+    "en": "Added support for new in wall dimmer with New manufacturer ID"
+  },
+  "1.3.8": {
+    "en": "Refactoring and multiple manufacturer id support"
+  },
+  "1.3.9": {
+    "en": "Small changes to in-wall switch driver"
+  }
+}
