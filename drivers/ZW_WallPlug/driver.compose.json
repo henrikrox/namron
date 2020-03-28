@@ -19,6 +19,7 @@
     "productId": [
       53252
     ],
+    "includeSecure": false,
     "learnmode": {
       "instruction": {
         "en": "1. Power on the smart plug, make sure it does not belong to any Z-Wave network. Press and hold down action button for over 10 seconds, if the LED indicator flashes yellow slowly, it means it does not belong to any network. Repower the smart plug/Triple press the action button on the smart plug to put it into inclusion mode."
