@@ -36,6 +36,7 @@
 		"manufacturerId": [816, 1080],
 		"productTypeId": 768,
 		"productId": [41734, 41744],
+		"includeSecure": false,
 		"productDocumentation": "",
 		"pid": 9999,
 		"imageRemotePath": "",
