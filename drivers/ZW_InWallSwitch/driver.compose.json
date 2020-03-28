@@ -26,6 +26,7 @@
     "productId": [
       53254
     ],
+    "includeSecure": false,
     "learnmode": {
       "image": "{{driverAssetsPath}}/learnmode.svg",
       "instruction": {
